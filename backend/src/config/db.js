@@ -1,10 +1,9 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose'
 
-const connectDB = async () => {
+export const connectDB = async () => {
     try {
         const conn = await mongoose.connect(process.env.MONGO_URI || 'mongodb://localhost:27017/student-portal', {
-            // useNewUrlParser: true, // Deprecated in new Mongoose
-            // useUnifiedTopology: true, // Deprecated in new Mongoose
+
         });
 
         console.log(`MongoDB Connected: ${conn.connection.host}`);
@@ -14,4 +13,4 @@ const connectDB = async () => {
     }
 };
 
-module.exports = connectDB;
+

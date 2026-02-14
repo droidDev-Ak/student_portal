@@ -1,45 +1,32 @@
-const express = require('express');
-const dotenv = require('dotenv');
-const cors = require('cors');
-const helmet = require('helmet');
-const morgan = require('morgan');
-const connectDB = require('./src/config/db');
+import express from 'express';
+import dotenv from 'dotenv';
+import cors from 'cors';
+import { connectDB } from './src/config/db.js';
+import { errorHandler } from './src/middleware/errorMiddleware.js';
+import studentRoutes from './src/routes/studentRoutes.js';
+import classRoutes from './src/routes/classRoutes.js';
+import professorRoutes from './src/routes/professorRoutes.js';
+import subjectRoutes from './src/routes/subjectRoutes.js';
+import gradeRoutes from './src/routes/gradeRoutes.js';
 
-// Load env vars
 dotenv.config();
-
-// Connect to database
 connectDB();
 
 const app = express();
 
-// Middleware
-app.use(express.json()); // Body parser
-app.use(cors()); // Allow cross-origin requests
-app.use(helmet()); // Set security headers
-app.use(morgan('dev')); // Logger
+app.use(express.json());
+app.use(cors());
 
-// Routes
-app.get('/', (req, res) => {
-    res.send('API is running...');
-});
+app.use('/api/students', studentRoutes);
+app.use('/api/classes', classRoutes);
+app.use('/api/professors', professorRoutes);
+app.use('/api/subjects', subjectRoutes);
+app.use('/api/grades', gradeRoutes);
 
-app.get('/health', (req, res) => {
-    res.status(200).json({ status: 'OK', uptime: process.uptime() });
-});
-
-// Error Handling Middleware
-app.use((err, req, res, next) => {
-    const statusCode = res.statusCode === 200 ? 500 : res.statusCode;
-    res.status(statusCode);
-    res.json({
-        message: err.message,
-        stack: process.env.NODE_ENV === 'production' ? null : err.stack,
-    });
-});
+app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
-    console.log(`Server running in ${process.env.NODE_ENV || 'development'} mode on port ${PORT}`);
+    console.log(`Server running on port ${PORT}`);
 });
