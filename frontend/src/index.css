@@ -1,0 +1,31 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+    .glass {
+        @apply bg-white bg-opacity-20 backdrop-filter backdrop-blur-lg border border-white border-opacity-30;
+    }
+
+    .glass-card {
+        @apply bg-white/80 backdrop-blur-md border border-white/50 shadow-soft;
+    }
+
+    .gradient-text {
+        @apply bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600;
+    }
+}
+
+body {
+    @apply bg-slate-50 text-slate-800 antialiased;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+    width: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background: #e2e8f0;
+    border-radius: 10px;
+}
