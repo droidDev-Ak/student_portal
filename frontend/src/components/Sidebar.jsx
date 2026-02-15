@@ -1,13 +1,14 @@
 import { LayoutDashboard, Users, GraduationCap, Megaphone, LogOut } from 'lucide-react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import clsx from 'clsx';
 
 const Sidebar = () => {
+    const navigate = useNavigate();
     const navItems = [
-        { icon: LayoutDashboard, label: 'Dashboard', path: '/' },
-        { icon: Users, label: 'Students', path: '/students' },
-        { icon: GraduationCap, label: 'Grades', path: '/grades' },
-        { icon: Megaphone, label: 'Announcements', path: '/announcements' },
+        { icon: LayoutDashboard, label: 'Dashboard', path: '/dashboard/class/65c2a1f9e2b4d32a1c8f1234' },
+        { icon: Users, label: 'Students', path: '/dashboard/students' },
+        { icon: GraduationCap, label: 'Grades', path: '/dashboard/grades' },
+        { icon: Megaphone, label: 'Announcements', path: '/dashboard/announcements' },
     ];
 
     return (
@@ -39,17 +40,22 @@ const Sidebar = () => {
                 ))}
             </nav>
 
-            <div className="p-4 mt-auto">
-                <div className="bg-slate-900 rounded-xl p-4 text-white">
-                    <p className="text-xs text-slate-400 mb-2">Logged in as</p>
-                    <div className="flex items-center gap-3">
-                        <img src="https://i.pravatar.cc/150?u=prof" className="w-8 h-8 rounded-full border border-slate-700" alt="Prof" />
-                        <div>
-                            <p className="text-sm font-semibold">Dr. Sarah Smith</p>
-                            <p className="text-[10px] text-slate-400 uppercase tracking-wider">HOD Computer Science</p>
-                        </div>
+            {/* User Profile */}
+            <div className="p-4 border-t border-slate-200">
+                <div className="flex items-center gap-3 mb-3">
+                    <img src="https://i.pravatar.cc/150?u=a042581f4e29026024d" alt="Profile" className="w-10 h-10 rounded-full border border-slate-200" />
+                    <div>
+                        <h4 className="font-bold text-sm text-slate-800">Dr. Sarah Smith</h4>
+                        <p className="text-xs text-slate-500">HOD Computer Science</p>
                     </div>
                 </div>
+                <button
+                    onClick={() => navigate('/')}
+                    className="flex items-center gap-3 px-4 py-2 w-full text-slate-500 hover:bg-red-50 hover:text-red-600 rounded-xl transition-all font-medium text-sm"
+                >
+                    <LogOut className="w-5 h-5" />
+                    Logout
+                </button>
             </div>
         </aside>
     );
